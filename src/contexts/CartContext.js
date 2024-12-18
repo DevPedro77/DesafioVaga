@@ -1,5 +1,6 @@
 import React, {useState, createContext} from "react";
 
+
 export const CartContext = createContext({});
 
 function CartProvider ({children}){
@@ -26,12 +27,29 @@ function CartProvider ({children}){
     
   }
 
+  function removeItemCart(products){
+    const indexItem = cart.findIndex(item => item.id === products.id)
+
+    if(cart[indexItem]?.amount > 1){
+      let cartList = cart;
+      cartList[indexItem].amount = cartList[indexItem].amount -1;
+      cartList[indexItem].total =  cartList[indexItem].total -  cartList[indexItem].price;
+
+      setCart(cartList)
+      return;
+    }
+
+    const removeItem =cart.filter(item => item.id !== products.id)
+    setCart(removeItem)
+  }
+
 
   return(
     <CartContext.Provider
       value={{
         cart,
-        addCart
+        addCart,
+        removeItemCart
       }}
     >
       {children}
