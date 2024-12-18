@@ -47,11 +47,13 @@ export default function Home(){
           style={styles.cartButton}
           onPress={ () => navigation.navigate('Cart')}
           >
-          <View style={styles.dot}>
-            <Text style={styles.dotText}>
-              {cart?.length}
-            </Text>
-          </View>
+            {cart.length >= 1 && (
+              <View style={styles.dot}>
+                  <Text style={styles.dotText}>
+                  {cart?.length}
+                </Text>
+              </View>
+            )}
         
             <AntDesign name="shoppingcart" size={24} color="black" />
         </TouchableOpacity>
